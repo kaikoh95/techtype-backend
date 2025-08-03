@@ -1,4 +1,5 @@
 import request from 'supertest';
+import type { Express } from 'express';
 
 // Mock the Supabase client
 jest.mock('./config/database', () => ({
@@ -13,15 +14,16 @@ jest.mock('./config/database', () => ({
 }));
 
 describe('Health Endpoint', () => {
-  let app: any;
+  let app: Express;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // Clear module cache to get fresh app instance
     jest.resetModules();
   });
 
   it('should return 200 with healthy status when database is connected', async () => {
-    app = require('./app').default;
+    const appModule = await import('./app');
+    app = appModule.default;
 
     const response = await request(app).get('/health').expect(200);
 

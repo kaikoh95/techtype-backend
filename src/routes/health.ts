@@ -47,7 +47,7 @@ import { supabase } from '../config/database';
  *                   format: date-time
  *                   example: "2024-01-01T00:00:00.000Z"
  */
-export const healthCheck = async (req: Request, res: Response) => {
+export const healthCheck = async (req: Request, res: Response): Promise<void> => {
   const timestamp = new Date().toISOString();
 
   try {
@@ -55,10 +55,11 @@ export const healthCheck = async (req: Request, res: Response) => {
     const { error } = await supabase.from('nodes').select('*', { count: 'exact', head: true });
 
     if (error) {
-      return res.status(503).json({
+      res.status(503).json({
         status: 'unhealthy',
         timestamp,
       });
+      return;
     }
 
     res.status(200).json({

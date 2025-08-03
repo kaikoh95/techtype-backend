@@ -1,7 +1,7 @@
 {
-  "name": "backend-challenge-main",
-  "version": "1.0.0",
-  "description": "#### Overview",
+  "name": "techtype-backend",
+  "version": "0.0.1",
+  "description": "TechType Backend Assessment",
   "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
@@ -22,8 +22,13 @@
     "prettier:fix": "prettier --write src"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "kaikoh95@gmail.com",
+  "license": "MIT",
+  "homepage": "https://github.com/kaikoh95/techtype-backend",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaikoh95/techtype-backend"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
     "express": "^5.1.0",
