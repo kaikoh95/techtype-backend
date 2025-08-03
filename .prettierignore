@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.min.js
+package-lock.json
+supabase/migrations/
+supabase/seed.sql
+supabase/schemas/
+*.env*
+.nvmrc
+*.toml
+.husky/
+.prettierignore

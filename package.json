@@ -8,30 +8,54 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "sb:start": "npx supabase start",
+    "sb:status": "npx supabase status",
     "sb:stop": "npx supabase stop",
     "sb:restart": "npm run sb:stop && npm run sb:start",
     "db:types": "npx supabase gen types typescript --local > src/types.generated.d.ts",
-    "db:reset": "npx supabase db reset",
-    "test": "jest"
+    "db:diff": "npx supabase db diff -f",
+    "db:reset": "npx supabase db reset && npm run db:types",
+    "test": "jest",
+    "prepare": "husky",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "prettier": "prettier --check src",
+    "prettier:fix": "prettier --write src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.1.0",
     "@types/supertest": "^6.0.3",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "dotenv": "^17.2.1",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
+    "husky": "^9.1.7",
     "jest": "^30.0.5",
+    "lint-staged": "^16.1.2",
     "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "supabase": "^2.33.9",
     "supertest": "^7.1.4",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
+  },
+  "lint-staged": {
+    "supabase/migrations/*.sql": "npm run db:reset",
+    "*": "npm run prettier:fix"
   }
 }

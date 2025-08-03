@@ -1,64 +1,51 @@
 ### Backend Development
 
-#### Overview
+This backend app is created with Express as the server and Supabase as the database, written in Typescript, and tested with Jest.
 
-This challenge will test the following skills:
+This project acknowledges the use of AI tools like Claude to help with the initial project setup and tests.
 
-- NodeJS environment (Node LTS)
-- Typescript proficiency
-- Relational databases
-- REST APIs
-- Validation
-- Code Documentation
-- Automated Testing
+#### Pre-requisites
 
-Do not be discouraged if you are unable to complete aspects of the challenge, it is designed to test all levels of ability
+- NVM (Node Version Manager)
+- Node.js >= 18 (or follow the .nvmrc file)
+- Supabase
+- Claude Code (optional for AI assistance)
 
-#### Rules
+#### Setup
 
-- Complete the challenge(s) on your own 
-- Referencing of online resources and use of tools is expected
-- All code, markup, and assets should be pushed to the provided repository
-- You are encouraged to ask us questions at any point
-- Note any deviations from the specification
-- You may use any supporting library you deem appropriate
+- Clone the repository
+- Run `nvm use` to use the correct Node.js version
+- Run `npm install` to install dependencies
+- Start the Supabase server by running `npm run sb:start`
+- Reset the database and apply the migrations and seed data by running `npm run db:reset`
+- Clone env.example to .env and fill in the values
 
-#### Instructions
+```bash
+cp env.example .env
+```
 
-1. Set up a NodeJS Typescript project
-2. Create a relational database with a schema for the following data structure:
+- SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY can be obtained from your local Supabase project by running `npm run sb:status`.
 
-- A PC (root node) is built from a tree of nodes. Each node has a name. The path of a node can be inferred from the name hierarchy (e.g. _'/root/parent/child'_).
-- Each node can have any number of properties. A property is a key value pair, where the key is a string and the value is a decimal number.
+#### Local Development
 
-3. Develop a way of interacting with this database in the NodeJS project. You may use an ORM of your own choice
-4. Seed the database with the following structure (entries with values are properties, others are nodes):
+- Run `npm run sb:start` to start the Supabase server
+- Run `npm run db:reset` to reset the database, this will also seed the database with the seed.sql data
+- Run `npm run dev` to start the development server
+- Run `npm run test` to run the tests
 
-- AlphaPC
-  - Height: 450.00
-  - Width: 180.00
-  - Processing
-    - CPU
-      - Cores: 4
-      - Power: 2.41
-    - Graphics
-      - RAM: 4000.00
-      - Ports: 8.00
-    - RAM: 32000.00
-  - Storage
-    - SSD
-      - Capacity: 1024.00
-      - WriteSpeed: 250.00
-    - HDD
-      - Capacity: 5120.00
-      - WriteSpeed: 1.724752
+Once you have the server running, check out the [Swagger UI](http://localhost:3000/api-docs) to see the API documentation.
 
-5. Expose HTTP endpoints for the following operations:
+#### Database Maintenance
 
-    1. Create a node with a specified parent
-    2. Add a new property on a specific existing node
-    3. Return the subtree of nodes with their properties for a provided node path
+Whenever you want to make changes to the database schema, use the Supabase Declarative Schemas and then generate the database diff using `npm run db:diff`.
 
-6. Create unit tests for endpoint **3** above.
+#### Future
 
-7. Create a readme guide on how to run the project, interact with the API and perform the tests.
+- Assumes we always only have one unique key property per node. (hence the upsert rather than explicit insert for #2 requirement).
+- Add ability to auth different users since we're only using the service role key for now so anyone with the key can access the endpoints.
+- Caching of the data to reduce the number of queries to the database.
+- Add UI visualization of the data.
+- Consider using database views to improve query performance when queries get more complex.
+- Add logging to the server.
+- Add deleted_at column to the nodes and properties tables for soft deletes to keep the history of the data.
+- Add CI/CD pipeline.
